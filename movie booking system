@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define ROWS 5
+#define COLS 5
+
+int seats[ROWS][COLS]; // 5x5 seat matrix
+
+// Function to display seat availability
+void displaySeats() {
+    printf("\nCinema Seat Layout:\n");
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            printf("[%c] ", seats[i][j] ? 'X' : 'O'); // X = Booked, O = Available
+        }
+        printf("\n");
+    }
+}
+
+// Function to book a seat
+void bookSeat() {
+    int row, col;
+    printf("\nEnter row and column to book (0-4): ");
+    scanf("%d %d", &row, &col);
+
+    if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
+        if (seats[row][col] == 0) {
+            seats[row][col] = 1;
+            printf("\nSeat booked successfully!\n");
+        } else {
+            printf("\nSeat already booked!\n");
+        }
+    } else {
+        printf("\nInvalid seat number!\n");
+    }
+}
+
+// Function to cancel a booking
+void cancelSeat() {
+    int row, col;
+    printf("\nEnter row and column to cancel booking (0-4): ");
+    scanf("%d %d", &row, &col);
+
+    if (row >= 0 && row < ROWS && col >= 0 && col < COLS) {
+        if (seats[row][col] == 1) {
+            seats[row][col] = 0;
+            printf("\nBooking cancelled successfully!\n");
+        } else {
+            printf("\nSeat is not booked!\n");
+        }
+    } else {
+        printf("\nInvalid seat number!\n");
+    }
+}
+
+// Main function
+int main() {
+    int choice;
+    while (1) {
+        printf("\n--- Movie Ticket Booking System ---\n");
+        printf("1. View Seats\n");
+        printf("2. Book a Ticket\n");
+        printf("3. Cancel a Booking\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: displaySeats(); break;
+            case 2: bookSeat(); break;
+            case 3: cancelSeat(); break;
+            case 4: exit(0);
+            default: printf("\nInvalid choice!\n");
+        }
+    }
+    return 0;
+}
